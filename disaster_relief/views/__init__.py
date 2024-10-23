@@ -4,7 +4,7 @@ from disaster_relief.views.user import show_user, check_in_db
 from disaster_relief.views.users_followers import show_followers
 from disaster_relief.views.users_following import show_following
 from disaster_relief.views.logout import logout
-from disaster_relief.views.explore import show_explore
+from disaster_relief.views.resources import show_resources
 from disaster_relief.views.post import show_post
 from disaster_relief.views.likes import likes
 from disaster_relief.views.comments import comments

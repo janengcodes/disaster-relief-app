@@ -8,8 +8,8 @@ import flask
 import disaster_relief
 
 
-@disaster_relief.app.route('/explore/')
-def show_explore():
+@disaster_relief.app.route('/resources/')
+def show_resources():
     """
     Show Explore: Display explore, showing users that haven't been followed.
 
@@ -45,4 +45,4 @@ def show_explore():
     context = {"logname": logname,
                "not_following": not_following,
                "len_not_following": len_not_following}
-    return flask.render_template("explore.html", **context)
+    return flask.render_template("resources.html", **context)

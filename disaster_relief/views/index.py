@@ -32,14 +32,7 @@ def show_index():
     cur2 = connection.execute(
         "SELECT p.* "
         "FROM posts p "
-        "WHERE p.owner = ? "
-        "OR p.owner IN ( "
-        "   SELECT username2 "
-        "   FROM following "
-        "   WHERE username1 = ? "
-        ") "
-        "ORDER BY p.postid DESC",
-        (logname, logname)
+        "ORDER BY p.postid DESC"
     )
 
     posts_query = cur2.fetchall()

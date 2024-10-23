@@ -19,12 +19,7 @@ def get_posts():
     latest_postid = connection.execute('''
         SELECT MAX(postid)
         FROM posts
-        WHERE (posts.owner = ? OR posts.owner IN (
-            SELECT username2
-            FROM following
-            WHERE username1 = ?)
-        )
-    ''', (logname, logname)).fetchone()
+    ''',).fetchone()
 
     latest_postid = latest_postid['MAX(postid)']
     postid_lte = flask.request.args.get('postid_lte',
@@ -49,14 +44,11 @@ def get_posts():
     size_posts = connection.execute('''
         SELECT posts.postid
         FROM posts
-        WHERE (posts.postid <= ? AND (posts.owner = ? OR posts.owner IN (
-            SELECT username2
-            FROM following
-            WHERE username1 = ?)))
+        WHERE (posts.postid <= ?)
         ORDER BY posts.postid DESC
         LIMIT ?
         OFFSET ?
-    ''', (postid_lte, logname, logname, size, (size * page))).fetchall()
+    ''', (postid_lte, size, (size * page))).fetchall()
     # [{'postid': 4}, {'postid': 3}]
     filtered_posts = [post['postid'] for post in size_posts]
     # print(filtered_posts)

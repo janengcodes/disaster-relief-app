@@ -56,7 +56,7 @@ a {
     margin-bottom: 20px;
 }
 
-.post .likes, .post .comments, .post .user {
+.post , .post .comments, .post .user {
     margin-left: 20px;
 }
 .bio {
