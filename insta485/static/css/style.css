@@ -1,0 +1,111 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Oleo+Script:wght@700&family=Rock+Salt&display=swap');
+
+
+.post .user img{
+    height: 50px;
+}
+.post .user span {
+    margin-left: 350px;
+}
+a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.post {
+    border: 1px solid rgb(167, 164, 164);
+    width: 600px;
+    display: inline-block;
+    margin-bottom: 50px;
+}
+
+.post .pic img{
+    width: 600px;
+}
+
+.posts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.post {
+    line-height: 2;
+}
+
+.post .user {
+    line-height: 1;
+}
+
+.ttl {
+    font-family: 'Oleo Script', cursive;
+    font-size: 45px;
+}
+
+.right {
+    text-align: right;
+    margin-top: -50px;
+    margin-bottom: 50px;
+}
+
+.heading {
+    border-bottom: 1px solid rgb(167, 164, 164);
+    margin-bottom: 20px;
+}
+
+.post .likes, .post .comments, .post .user {
+    margin-left: 20px;
+}
+.bio {
+    margin-left: 80px;
+}
+.uname {
+    font-size: 40px;
+    line-height: 2;
+}
+
+.followers, .following {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 2;
+}
+.numposts {
+    font-size: 20px;
+    line-height: 2;
+}
+
+.fullname {
+    font-size: 20px;
+    line-height: 2;
+}
+
+.images {
+    display: flex;
+    margin-left: 80px;
+    flex-direction: row;
+}
+
+.images img {
+    margin-right: 20px;
+    margin-top: 20px;
+    width: 400px;
+}
+
+.oneFollower {
+    border: 2px solid black;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.titleFol {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.logo {
+    width: 70px;
+}

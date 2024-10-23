@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# insta485run
+#
+# Clean, build and start server
+#
+# Andrew DeOrio <awdeorio@umich.edu>
+# add the  chmod +x insta485run to make it executable
+
+
+# Stop on errors, print commands
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -Eeuo pipefail
+set -x
+
+# # Clean
+# rm -rf insta485/html
+
+# # Build
+# insta485generator insta485
+
+# # Serve
+# cd insta485/html
+
+if [ ! -f "var/insta485.sqlite3" ]; then
+    echo "Error: can't find database var/insta485.sqlite3"
+    echo "Try: ./bin/insta485db create"
+    exit 1
+fi
+
+npx webpack --watch &
+flask --app insta485 --debug run --host 0.0.0.0 --port 8000

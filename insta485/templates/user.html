@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css"> 
+    <title>insta485</title>
+</head>
+<body>
+        <div class="heading">
+            <a href="/">
+                <img src="/static/images/ig_logo.png" alt="Instagram logo" class="logo">
+                 <span class = "ttl"> Insta485</span>
+            </a> 
+            <div class = "right">
+                <a href = "/explore/">
+                    explore 
+                </a>
+                |
+                <a href = "{{url_for('show_user', username=logname)}}">
+                    {{logname}}
+                </a>
+            </div>   
+        </div>
+    <div class="bio">
+        <div class="uname">
+            {{username}}
+        </div>
+
+        {% if logname == username %}
+            <div class="edit">
+                <a href= "/accounts/edit/">Edit profile</a>
+            </div>
+            <form action="{{url_for('logout')}}" method="post" enctype="multipart/form-data">
+                <input type="submit" name="logout" value="Logout"/>
+            </form>
+            
+        {% else %}
+            {% if logname_follows_username == 0 %}
+                <form action="/following/?target={{url_for('show_user', username=username)}}" method="post" enctype="multipart/form-data">
+                    <input type="submit" name="follow" value="follow"/>
+                    <input type="hidden" name="username" value="{{username}}"/>
+                    <input type="hidden" name="operation" value="follow"/>
+                </form>
+            {% else %}
+                <form action="/following/?target={{url_for('show_user', username=username)}}" method="post" enctype="multipart/form-data">
+                    <input type="submit" name="unfollow" value="unfollow"/>
+                    <input type="hidden" name="username" value="{{username}}"/>
+                    <input type="hidden" name="operation" value="unfollow"/>
+                </form>
+            {% endif %}
+            <div class="isFollowing">
+                {% if logname_follows_username == 1 %}
+                    following
+                {% else %}
+                    not following
+                {% endif %}
+            </div>
+            
+        {% endif %}
+        <div class="info">
+            <span class="numposts">
+                {%if total_posts == 1 %}
+                    1 post
+                {% else %}
+                    {{total_posts}} posts
+                {% endif %}
+            </span>
+            <span class="followers">
+                <a href = "/users/{{username}}/followers/">
+                    {%if followers == 1 %}
+                        1 follower
+                    {% else %}
+                        {{followers['COUNT(*)']}} followers
+                    {% endif %}
+                </a>
+            </span>
+            <span class="following">
+                <a href = "/users/{{username}}/following/">
+                {{following['COUNT(*)']}} following
+                </a>
+            </span>
+        </div>
+        <div class="fullname">
+            {{fullname[0].fullname}}
+         </div>
+        <div>
+            {% if logname == username %}
+            <form action="/posts/?target={{url_for('show_user', username = username)}}" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" accept="image/*" required/>
+                <input type="submit" name="create_post" value="upload new post"/>
+                <input type="hidden" name="operation" value="create"/>
+            </form>
+            {% endif %}
+        </div>
+        </div>
+         <div class="images">
+            {% if total_posts == 0 %}
+                <div class="noPosts">
+                    No posts yet.
+                </div>
+            {% endif %}
+            {% for post in posts %}
+                <a href = "/posts/{{post.postid}}/">
+                <img src = "/uploads/{{post.filename}}" alt = "post">
+                </a>
+            {% endfor %}
+         </div>
+       
+</body>
+</html>
