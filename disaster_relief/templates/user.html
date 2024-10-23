@@ -8,21 +8,19 @@
     <title>disaster_relief</title>
 </head>
 <body>
+    <div>
         <div class="heading">
             <a href="/">
-                <img src="/static/images/ig_logo.png" alt="Instagram logo" class="logo">
-                 <span class = "ttl"> disaster_relief</span>
-            </a> 
-            <div class = "right">
-                <a href = "/explore/">
-                    explore 
-                </a>
-                |
-                <a href = "{{url_for('show_user', username=logname)}}">
-                    {{logname}}
-                </a>
-            </div>   
+                <!-- <img src="/static/images/ig_logo.png" alt="Instagram logo" class="logo"> -->
+                <span class="ttl">Disaster Relief</span>
+            </a>
+            <div class="right">
+                <a href="/resources/">Resources</a> |
+                <a href="{{url_for('show_user', username=logname)}}">{{logname}}</a>
+            </div>
+            <h1 style="text-align: center"> User </h1>
         </div>
+    </div>
     <div class="bio">
         <div class="uname">
             {{username}}

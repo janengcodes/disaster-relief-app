@@ -15,9 +15,6 @@ export default function Post({ url }) {
   const [imgUrl, setImgUrl] = useState("");
   const [owner, setOwner] = useState("");
   const [comments, setComments] = useState([]);
-  const [likes, setLikes] = useState(0);
-  const [likeUrl, setLikeUrl] = useState("hello there");
-  const [ownerImgUrl, setOwnerImgUrl] = useState("");
   const [postid, setPostid] = useState(0);
   const [commentText, setCommentText] = useState("");
   const [dataFetched, setDataFetched] = useState(false);
@@ -40,9 +37,6 @@ export default function Post({ url }) {
           setImgUrl(data.imgUrl);
           setOwner(data.owner);
           setComments(data.comments);
-          setLikes(data.likes);
-          setLikeUrl(data.likes.url);
-          setOwnerImgUrl(data.ownerImgUrl);
           setPostid(data.postid);
           setDataFetched(true);
           setCreated(data.created);
@@ -57,44 +51,6 @@ export default function Post({ url }) {
       ignoreStaleRequest = true;
     };
   }, [url]);
-
-  function toggleLikes(likesUrl) {
-    if (likes.lognameLikesThis) {
-      fetch(likesUrl, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => {
-          if (!response.ok) throw Error(response.statusText);
-          setLikes({ numLikes: likes.numLikes - 1, lognameLikesThis: false });
-        })
-        .catch((error) => console.log(error));
-    } else {
-      // const postData = {
-      //   url: likesUrl,
-      // };
-      const modifiedUrl = `/api/v1/likes/?postid=${postid}`;
-      // Send a POST request to the API
-      fetch(modifiedUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        // body: JSON.stringify(postData),
-      })
-        .then((response) => {
-          if (!response.ok) throw Error(response.statusText);
-          return response.json(); // Parse the JSON response
-        })
-        .then((data) => {
-          setLikes({ numLikes: likes.numLikes + 1, lognameLikesThis: true });
-          setLikeUrl(data.url);
-        })
-        .catch((error) => console.log(error));
-    }
-  }
 
   function deleteComment(commentid) {
     const modifiedUrl = `/api/v1/comments/${commentid}/`;
@@ -162,11 +118,6 @@ export default function Post({ url }) {
     );
   }
 
-  function handleDoubleClick() {
-    if (!likes.lognameLikesThis) {
-      toggleLikes(likeUrl);
-    }
-  }
   // Generate a human-readable time stamp
   const timeCreated = dayjs.utc(created).local().fromNow();
 
@@ -175,7 +126,6 @@ export default function Post({ url }) {
     <div className="posts">
       <div className="post">
         <div className="user">
-          <img src={ownerImgUrl} alt="profile_picture" />
           <a href={`/users/${owner}/`}>
             <p>{owner}</p>
           </a>
@@ -186,24 +136,7 @@ export default function Post({ url }) {
           <img
             src={imgUrl}
             alt="post_image"
-            onDoubleClick={handleDoubleClick}
           />
-        </div>
-        {/* loop through the comments for each post */}
-        <div className="likes">
-          {likes.numLikes === 1
-            ? `${likes.numLikes} like`
-            : `${likes.numLikes} likes`}
-        </div>
-        <div className="likeButton" />
-        <div>
-          <button
-            type="button"
-            data-testid="like-unlike-button"
-            onClick={() => toggleLikes(likeUrl)}
-          >
-            {likes.lognameLikesThis ? "Unlike" : "Like"}
-          </button>
         </div>
         <div className="comments">
           {comments.map((comment) => (

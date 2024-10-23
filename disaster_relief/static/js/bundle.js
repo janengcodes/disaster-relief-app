@@ -141,32 +141,20 @@ function Post(_ref) {
     setComments = _useState6[1];
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(0),
     _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState7, 2),
-    likes = _useState8[0],
-    setLikes = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("hello there"),
+    postid = _useState8[0],
+    setPostid = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState10 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState9, 2),
-    likeUrl = _useState10[0],
-    setLikeUrl = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
+    commentText = _useState10[0],
+    setCommentText = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
     _useState12 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState11, 2),
-    ownerImgUrl = _useState12[0],
-    setOwnerImgUrl = _useState12[1];
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(0),
+    dataFetched = _useState12[0],
+    setDataFetched = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
     _useState14 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState13, 2),
-    postid = _useState14[0],
-    setPostid = _useState14[1];
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
-    _useState16 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState15, 2),
-    commentText = _useState16[0],
-    setCommentText = _useState16[1];
-  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
-    _useState18 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState17, 2),
-    dataFetched = _useState18[0],
-    setDataFetched = _useState18[1];
-  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(""),
-    _useState20 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState19, 2),
-    created = _useState20[0],
-    setCreated = _useState20[1];
+    created = _useState14[0],
+    setCreated = _useState14[1];
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
     // Declare a boolean flag that we can use to cancel the API request.
     var ignoreStaleRequest = false;
@@ -184,9 +172,6 @@ function Post(_ref) {
         setImgUrl(data.imgUrl);
         setOwner(data.owner);
         setComments(data.comments);
-        setLikes(data.likes);
-        setLikeUrl(data.likes.url);
-        setOwnerImgUrl(data.ownerImgUrl);
         setPostid(data.postid);
         setDataFetched(true);
         setCreated(data.created);
@@ -201,48 +186,6 @@ function Post(_ref) {
       ignoreStaleRequest = true;
     };
   }, [url]);
-  function toggleLikes(likesUrl) {
-    if (likes.lognameLikesThis) {
-      fetch(likesUrl, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }).then(function (response) {
-        if (!response.ok) throw Error(response.statusText);
-        setLikes({
-          numLikes: likes.numLikes - 1,
-          lognameLikesThis: false
-        });
-      })["catch"](function (error) {
-        return console.log(error);
-      });
-    } else {
-      // const postData = {
-      //   url: likesUrl,
-      // };
-      var modifiedUrl = "/api/v1/likes/?postid=".concat(postid);
-      // Send a POST request to the API
-      fetch(modifiedUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        }
-        // body: JSON.stringify(postData),
-      }).then(function (response) {
-        if (!response.ok) throw Error(response.statusText);
-        return response.json(); // Parse the JSON response
-      }).then(function (data) {
-        setLikes({
-          numLikes: likes.numLikes + 1,
-          lognameLikesThis: true
-        });
-        setLikeUrl(data.url);
-      })["catch"](function (error) {
-        return console.log(error);
-      });
-    }
-  }
   function deleteComment(commentid) {
     var modifiedUrl = "/api/v1/comments/".concat(commentid, "/");
     fetch(modifiedUrl, {
@@ -299,11 +242,7 @@ function Post(_ref) {
       className: "posts"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("h1", null, "Loading..."));
   }
-  function handleDoubleClick() {
-    if (!likes.lognameLikesThis) {
-      toggleLikes(likeUrl);
-    }
-  }
+
   // Generate a human-readable time stamp
   var timeCreated = dayjs__WEBPACK_IMPORTED_MODULE_3___default().utc(created).local().fromNow();
 
@@ -314,10 +253,7 @@ function Post(_ref) {
     className: "post"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("div", {
     className: "user"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("img", {
-    src: ownerImgUrl,
-    alt: "profile_picture"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("a", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("a", {
     href: "/users/".concat(owner, "/")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("p", null, owner)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("a", {
     href: "/posts/".concat(postid, "/")
@@ -325,19 +261,8 @@ function Post(_ref) {
     className: "pic"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("img", {
     src: imgUrl,
-    alt: "post_image",
-    onDoubleClick: handleDoubleClick
+    alt: "post_image"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("div", {
-    className: "likes"
-  }, likes.numLikes === 1 ? "".concat(likes.numLikes, " like") : "".concat(likes.numLikes, " likes")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("div", {
-    className: "likeButton"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("button", {
-    type: "button",
-    "data-testid": "like-unlike-button",
-    onClick: function onClick() {
-      return toggleLikes(likeUrl);
-    }
-  }, likes.lognameLikesThis ? "Unlike" : "Like")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("div", {
     className: "comments"
   }, comments.map(function (comment) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("div", {
