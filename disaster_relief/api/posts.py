@@ -89,20 +89,6 @@ def get_post(postid_url_slug):
     # If post doesn't exist, return 404
     if post is None:
         raise AuthException('Not Found', status_code=404)
-    # likes = connection.execute('''
-    #     SELECT owner, likeid
-    #     FROM likes
-    #     WHERE postid = ?
-    # ''', (postid_url_slug, )).fetchall()
-
-    # logname_liked = False
-    # logname_like_obj = None
-    # for like in likes:
-    #     # print("like ", like['likeid'])
-    #     if like['owner'] == logname:
-    #         logname_liked = True
-    #         logname_like_obj = like
-    #         break
 
     # Select the comments from the database for that postid
     comments = connection.execute('''
@@ -126,25 +112,14 @@ def get_post(postid_url_slug):
             "url": "/api/v1/comments/" + str(comment['commentid']) + "/"
         }
         json_comments.append(new_comment)
-    # owner_img_url = connection.execute('''
-    #     SELECT filename
-    #     FROM users
-    #     WHERE username = ?
-    # ''', (post['owner'],)).fetchone()
+
 
     context = {
         "comments": json_comments,
         "comments_url": "/api/v1/comments/?postid=" + str(postid_url_slug),
         "created": post['created'],
         "imgUrl": "/uploads/" + post['filename'],
-        # "likes": {
-        #     "lognameLikesThis": logname_liked,
-        #     "numLikes": len(likes),
-        #     "url": f"/api/v1/likes/{str(logname_like_obj['likeid'])}/"
-        #     if logname_liked else None
-        # },
         "owner": post['owner'],
-        # "ownerImgUrl": "/uploads/" + owner_img_url['filename'],
         "ownerShowUrl": f"/users/{post['owner']}/",
         "postShowUrl": f"/posts/{postid_url_slug}/",
         "postid": postid_url_slug,

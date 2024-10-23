@@ -26,7 +26,7 @@ def show_post(postid):
         "FROM posts p "
         "WHERE p.postid = ? ",
         (postid,)).fetchone()
-    comments, like_count, profile, liked = \
+    comments, profile = \
         get_post_info(post["owner"], logname, postid, profile)
     # Add database info to context
     context = {
@@ -37,7 +37,7 @@ def show_post(postid):
         "owner": post["owner"],
         "filename": post["filename"],
         "comments": comments,
-        "likeCount": like_count['COUNT(*)'],
-        "ifLiked": liked['COUNT(*)']
+        # "likeCount": like_count['COUNT(*)'],
+        # "ifLiked": liked['COUNT(*)']
     }
     return flask.render_template("post.html", **context)

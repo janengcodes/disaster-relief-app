@@ -39,18 +39,15 @@ def show_index():
     posts = []
     for post in posts_query:
         post_id = post["postid"]
-        comments, like_count, profile, liked = \
+        comments, profile= \
             get_post_info(post["owner"], logname, post_id, connection)
 
         posts.append({
             "postid": post_id,
             "owner": post["owner"],
-            "profile_pic": profile,
             "filename": post["filename"],
             "humanizedTS": arrow.get(post["created"]).humanize(),
             "comments": comments,
-            "likeCount": like_count,
-            "ifLiked": liked['COUNT(*)']
         })
     # Add database info to context
     context = {"logname": logname, "posts": posts}
@@ -65,26 +62,10 @@ def get_post_info(post_owner, logname, post_id, connection):
         WHERE comments.postid = ?
         ORDER BY comments.commentid ASC
     ''', (post_id,)).fetchall()
-
-    # Fetch like counts for the current post
-    like_count = connection.execute('''
-        SELECT COUNT(*)
-        FROM likes
-        WHERE likes.postid = ?
-    ''', (post_id,)).fetchone()
-
     # to get owner profile pic
     profile = connection.execute('''
         SELECT users.filename
         FROM users
         WHERE users.username = ?
     ''', (post_owner,)).fetchone()
-
-    # get whether logged in user has liked post
-    liked = connection.execute('''
-        SELECT COUNT(*)
-        FROM likes
-        WHERE likes.postid = ?
-        AND likes.owner = ?
-    ''', (post_id, logname)).fetchone()
-    return comments, like_count, profile, liked
+    return comments, profile

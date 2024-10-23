@@ -6,7 +6,7 @@ from disaster_relief.views.users_following import show_following
 from disaster_relief.views.logout import logout
 from disaster_relief.views.resources import show_resources
 from disaster_relief.views.post import show_post
-from disaster_relief.views.likes import likes
+# from disaster_relief.views.likes import likes
 from disaster_relief.views.comments import comments
 from disaster_relief.views.accounts_post import post_account
 from disaster_relief.views.accounts_get import create, delete, edit, password, login
