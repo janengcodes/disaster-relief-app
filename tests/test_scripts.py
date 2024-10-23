@@ -11,37 +11,37 @@ import sqlite3
 
 
 def test_executables():
-    """Verify insta485run, insta485test, insta485db are executables."""
-    assert_is_shell_script("bin/insta485run")
-    assert_is_shell_script("bin/insta485test")
-    assert_is_shell_script("bin/insta485db")
-    assert_is_shell_script("bin/insta485install")
+    """Verify disaster_reliefrun, disaster_relieftest, disaster_reliefdb are executables."""
+    assert_is_shell_script("bin/disaster_reliefrun")
+    assert_is_shell_script("bin/disaster_relieftest")
+    assert_is_shell_script("bin/disaster_reliefdb")
+    assert_is_shell_script("bin/disaster_reliefinstall")
 
 
-def test_insta485install():
-    """Verify insta485test contains the right commands."""
-    insta485test_content = Path("bin/insta485install")\
+def test_disaster_reliefinstall():
+    """Verify disaster_relieftest contains the right commands."""
+    disaster_relieftest_content = Path("bin/disaster_reliefinstall")\
         .read_text(encoding='utf-8')
-    assert "python3 -m venv" in insta485test_content
-    assert "source env/bin/activate" in insta485test_content
-    assert "pip install -r requirements.txt" in insta485test_content
-    assert "pip install -e ." in insta485test_content
-    assert "npm ci ." in insta485test_content
+    assert "python3 -m venv" in disaster_relieftest_content
+    assert "source env/bin/activate" in disaster_relieftest_content
+    assert "pip install -r requirements.txt" in disaster_relieftest_content
+    assert "pip install -e ." in disaster_relieftest_content
+    assert "npm ci ." in disaster_relieftest_content
 
 
-def test_insta485db_random():
-    """Verify insta485db reset does a destroy and a create."""
+def test_disaster_reliefdb_random():
+    """Verify disaster_reliefdb reset does a destroy and a create."""
     # Clean up
-    db_path = Path("var/insta485.sqlite3")
+    db_path = Path("var/disaster_relief.sqlite3")
     if db_path.exists():
         db_path.unlink()
 
-    # Run "insta485db reset && insta485db random"
-    subprocess.run(["bin/insta485db", "reset"], check=True)
-    subprocess.run(["bin/insta485db", "random"], check=True)
+    # Run "disaster_reliefdb reset && disaster_reliefdb random"
+    subprocess.run(["bin/disaster_reliefdb", "reset"], check=True)
+    subprocess.run(["bin/disaster_reliefdb", "random"], check=True)
 
     # Connect to the database
-    connection = sqlite3.connect("var/insta485.sqlite3")
+    connection = sqlite3.connect("var/disaster_relief.sqlite3")
     connection.execute("PRAGMA foreign_keys = ON")
 
     # Get the number of posts from the database

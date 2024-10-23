@@ -43,7 +43,7 @@ function loadFeed() {
 describe("Index page when awdeorio is logged in with real database", () => {
   // The beforeEach() hook automatically runs before each it() block.
   beforeEach(() => {
-    // Reset the database. This command is equivalent to running ./insta485db reset.
+    // Reset the database. This command is equivalent to running ./disaster_reliefdb reset.
     cy.task("seedDb");
 
     // Log in at the beginning of every test.

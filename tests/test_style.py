@@ -12,13 +12,13 @@ import utils
 def test_pycodestyle():
     """Run pycodestyle."""
     assert_no_prohibited_terms("nopep8", "noqa", "pylint")
-    subprocess.run(["pycodestyle", "insta485"], check=True)
+    subprocess.run(["pycodestyle", "disaster_relief"], check=True)
 
 
 def test_pydocstyle():
     """Run pydocstyle."""
     assert_no_prohibited_terms("nopep8", "noqa", "pylint")
-    subprocess.run(["pydocstyle", "insta485"], check=True)
+    subprocess.run(["pydocstyle", "disaster_relief"], check=True)
 
 
 def test_pylint():
@@ -27,7 +27,7 @@ def test_pylint():
     subprocess.run([
         "pylint",
         "--rcfile", "pyproject.toml",
-        "insta485",
+        "disaster_relief",
     ], check=True)
 
 
@@ -40,7 +40,7 @@ def test_eslint():
         "--no-inline-config",
         "--no-eslintrc",
         "--config", utils.TEST_DIR/"testdata/eslintrc.js",
-        "insta485/js/",
+        "disaster_relief/js/",
     ], check=True)
 
 
@@ -50,7 +50,7 @@ def test_prettier():
     subprocess.run([
         "npx", "prettier",
         "--check",
-        "insta485/js",
+        "disaster_relief/js",
     ], check=True)
 
 
@@ -71,7 +71,7 @@ def assert_no_prohibited_terms(*terms):
                 "--exclude=__init__.py",
                 "--exclude=bundle.js",
                 "--exclude=*node_modules/*",
-                "insta485",
+                "disaster_relief",
             ],
             check=False,  # We'll check the return code manually
             stdout=subprocess.PIPE,

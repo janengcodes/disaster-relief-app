@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css"> 
+    <title>disaster_relief</title>
+</head>
+<body>
+    <div class="heading">
+        <a href="/">
+            <img src="/static/images/ig_logo.png" alt="Instagram logo" class="logo">
+                <span class = "ttl"> disaster_relief</span>
+        </a> 
+        <div class = "right">
+            <a href = "/explore/">
+                explore 
+            </a>
+            |
+            <a href = "/users/{{logname}}/">
+                {{logname}}
+            </a>
+        </div>   
+    </div>
+    {% if len_not_following != 0 %}
+        <div class="titleFol">
+            Discover People
+        </div>
+        {% for fol in not_following %}
+        <div class="oneFollower">
+            <a href = "/users/{{fol.username}}/">
+                <img src = "/uploads/{{fol.filename}}" alt = "user image">
+                {{fol.username}}
+            </a>
+            <form action="/following/?target=/explore/" method="post" enctype="multipart/form-data">
+                <input type="submit" name="follow" value="follow"/>
+                <input type="hidden" name="username" value="{{fol.username}}"/>
+                <input type="hidden" name="operation" value="follow"/>
+            </form>
+            
+     
+        </div>
+    {% endfor %}
+    {% endif %}
+</body>

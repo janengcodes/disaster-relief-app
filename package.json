@@ -1,8 +1,8 @@
 {
-  "name": "insta485",
+  "name": "disaster_relief",
   "version": "1.0.0",
-  "description": "insta485 front end",
-  "main": "insta485/js/main.jsx",
+  "description": "disaster_relief front end",
+  "main": "disaster_relief/js/main.jsx",
   "author": "awdeorio",
   "license": "MIT",
   "repository": {},

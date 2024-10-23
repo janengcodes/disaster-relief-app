@@ -2,16 +2,16 @@ const path = require("path");
 const { existsSync } = require("fs");
 
 // Set the entrypoint to main.jsx by default, but main.tsx if using TypeScript.
-let entry = "./insta485/js/main.jsx";
-if (existsSync("./insta485/js/main.tsx")) {
-  entry = "./insta485/js/main.tsx";
+let entry = "./disaster_relief/js/main.jsx";
+if (existsSync("./disaster_relief/js/main.tsx")) {
+  entry = "./disaster_relief/js/main.tsx";
 }
 
 module.exports = {
   mode: "development",
   entry,
   output: {
-    path: path.join(__dirname, "/insta485/static/js/"),
+    path: path.join(__dirname, "/disaster_relief/static/js/"),
     filename: "bundle.js",
   },
   devtool: "source-map",

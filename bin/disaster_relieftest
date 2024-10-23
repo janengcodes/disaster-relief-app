@@ -1,0 +1,41 @@
+#!/bin/bash
+#
+# disaster_relieftest
+#
+# tests code
+#
+# Andrew DeOrio <awdeorio@umich.edu>
+# add the  chmod +x disaster_relieftest to make it executable
+
+
+# Stop on errors, print commands
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -Eeuo pipefail
+set -x
+
+# # Clean
+# rm -rf disaster_relief/html
+
+# # Build
+# disaster_reliefgenerator disaster_relief
+
+# # Serve
+# cd disaster_relief/html
+
+#stops on errors 
+if [ ! -e "var/disaster_relief.sqlite3" ]; then
+    echo "Error: can't find database var/disaster_relief.sqlite3"
+    echo "Try: ./bin/disaster_reliefdb create"
+    exit 1
+fi
+
+pycodestyle disaster_relief
+pydocstyle disaster_relief
+pylint disaster_relief
+pytest -v tests
+npx eslint --ext jsx disaster_relief/js/
+npx prettier --check disaster_relief/js
+npx prettier --write disaster_relief/js
+
+
+flask --app disaster_relief --debug run --host 0.0.0.0 --port 8000
