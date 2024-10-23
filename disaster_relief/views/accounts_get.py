@@ -46,7 +46,6 @@ def create():
         <!-- DO NOT CHANGE THIS (aside from styling) -->
         <form action="/accounts/?target=/" method="post"
         enctype="multipart/form-data">
-            <input type="file" name="file" required/>
             <input type="text" name="fullname" required
             placeholder="Full Name"/>
             <input type="text" name="username" required
@@ -97,11 +96,11 @@ def edit():
         return flask.redirect(flask.url_for('login'))
     connection = disaster_relief.model.get_db()
     logname = flask.session.get('username')
-    photo = connection.execute(
-            "SELECT f.filename "
-            "FROM users f "
-            "WHERE f.username = ?",
-            (logname,),).fetchall()
+    # photo = connection.execute(
+    #         "SELECT f.filename "
+    #         "FROM users f "
+    #         "WHERE f.username = ?",
+    #         (logname,),).fetchall()
 
     # get user fullname
     fullname = connection.execute(

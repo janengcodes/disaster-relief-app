@@ -1,21 +1,19 @@
 PRAGMA foreign_keys = ON;
 
-INSERT INTO users(username, fullname, email, filename, password)
+INSERT INTO users(username, fullname, email, password)
 VALUES ('awdeorio', 'Andrew DeOrio', 'awdeorio@umich.edu', 
-        'e1a7c5c32973862ee15173b0259e3efdb6a391af.jpg', 
         'sha512$a45ffdcc71884853a2cba9e6bc55e812$c739cef1aec45c6e345c8463136dc1ae2fe19963106cf748baf87c7102937aa96928aa1db7fe1d8da6bd343428ff3167f4500c8a61095fb771957b4367868fb8');
 
-INSERT INTO users(username, fullname, email, filename, password)
-VALUES ('jflinn', 'Jason Flinn', 'jflinn@umich.edu',
-        '505083b8b56c97429a728b68f31b0b2a089e5113.jpg', 
+INSERT INTO users(username, fullname, email, password)
+VALUES ('jflinn', 'Jason Flinn', 'jflinn@umich.edu', 
         'sha512$a45ffdcc71884853a2cba9e6bc55e812$c739cef1aec45c6e345c8463136dc1ae2fe19963106cf748baf87c7102937aa96928aa1db7fe1d8da6bd343428ff3167f4500c8a61095fb771957b4367868fb8'  );
 
-INSERT INTO users(username, fullname, email, filename, password)
-VALUES ('michjc', 'Michael Cafarella', 'michjc@umich.edu', '5ecde7677b83304132cb2871516ea50032ff7a4f.jpg',
+INSERT INTO users(username, fullname, email, password)
+VALUES ('michjc', 'Michael Cafarella', 'michjc@umich.edu',
 'sha512$a45ffdcc71884853a2cba9e6bc55e812$c739cef1aec45c6e345c8463136dc1ae2fe19963106cf748baf87c7102937aa96928aa1db7fe1d8da6bd343428ff3167f4500c8a61095fb771957b4367868fb8');
 
-INSERT INTO users(username, fullname, email, filename, password)
-VALUES ('jag', 'H.V. Jagadish', 'jag@umich.edu', '73ab33bd357c3fd42292487b825880958c595655.jpg', 
+INSERT INTO users(username, fullname, email, password)
+VALUES ('jag', 'H.V. Jagadish', 'jag@umich.edu', 
 'sha512$a45ffdcc71884853a2cba9e6bc55e812$c739cef1aec45c6e345c8463136dc1ae2fe19963106cf748baf87c7102937aa96928aa1db7fe1d8da6bd343428ff3167f4500c8a61095fb771957b4367868fb8');
 
 
@@ -56,43 +54,3 @@ INSERT INTO comments(commentid, owner, postid, text)
 VALUES (7, 'jag', 4, 'Saw this on the diag yesterday!');
 
 
-
-INSERT INTO likes(likeid, owner, postid)
-VALUES (1, 'awdeorio', 1);
-
-INSERT INTO likes(likeid, owner, postid)
-VALUES (2, 'michjc', 1);
-
-INSERT INTO likes(likeid, owner, postid)
-VALUES (3, 'jflinn', 1);
-
-INSERT INTO likes(likeid, owner, postid)
-VALUES (4, 'awdeorio', 2);
-
-INSERT INTO likes(likeid, owner, postid)
-VALUES (5, 'michjc', 2);
-
-INSERT INTO likes(likeid, owner, postid)
-VALUES (6, 'awdeorio', 3);
-
-INSERT INTO following(username1, username2)
-VALUES ('awdeorio', 'jflinn');
-
-INSERT INTO following(username1, username2)
-VALUES ('awdeorio', 'michjc');
-
-INSERT INTO following(username1, username2)
-VALUES ('jflinn', 'awdeorio');
-
-INSERT INTO following(username1, username2)
-VALUES ('jflinn', 'michjc');
-
-
-INSERT INTO following(username1, username2)
-VALUES ('michjc', 'awdeorio');
-
-INSERT INTO following(username1, username2)
-VALUES ('michjc', 'jag');
-
-INSERT INTO following(username1, username2)
-VALUES ('jag', 'michjc');
