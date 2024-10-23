@@ -49,28 +49,16 @@ def get_posts():
         LIMIT ?
         OFFSET ?
     ''', (postid_lte, size, (size * page))).fetchall()
-    # [{'postid': 4}, {'postid': 3}]
     filtered_posts = [post['postid'] for post in size_posts]
-    # print(filtered_posts)
 
     for post in filtered_posts:
-        # postid = str(post)
         new_post = {"postid": post,
                     "url": ("/api/v1/posts/" + str(post) + "/")}
         json_posts.append(new_post)
-    #  if flask.request.query_string:
-    #  If there are query parameters, construct the URL without a
-    #  question mark
-    #     full_url = url + '?' + flask.request.query_string.decode('utf-8')
-    # else:
-    #     # If there are no query parameters, use the base URL
-    #     without a question mark
-    #     full_url = url
 
     if len(json_posts) < size:
         next_str = ""
     else:
-        # size=1&page=2&postid_lte=2
         next_str = ("/api/v1/posts/?size=" + str(size) + "&page=" +
                     str(page + 1) + "&postid_lte=" + str(postid_lte))
     if flask.request.query_string:
@@ -101,20 +89,20 @@ def get_post(postid_url_slug):
     # If post doesn't exist, return 404
     if post is None:
         raise AuthException('Not Found', status_code=404)
-    likes = connection.execute('''
-        SELECT owner, likeid
-        FROM likes
-        WHERE postid = ?
-    ''', (postid_url_slug, )).fetchall()
+    # likes = connection.execute('''
+    #     SELECT owner, likeid
+    #     FROM likes
+    #     WHERE postid = ?
+    # ''', (postid_url_slug, )).fetchall()
 
-    logname_liked = False
-    logname_like_obj = None
-    for like in likes:
-        # print("like ", like['likeid'])
-        if like['owner'] == logname:
-            logname_liked = True
-            logname_like_obj = like
-            break
+    # logname_liked = False
+    # logname_like_obj = None
+    # for like in likes:
+    #     # print("like ", like['likeid'])
+    #     if like['owner'] == logname:
+    #         logname_liked = True
+    #         logname_like_obj = like
+    #         break
 
     # Select the comments from the database for that postid
     comments = connection.execute('''
@@ -138,25 +126,25 @@ def get_post(postid_url_slug):
             "url": "/api/v1/comments/" + str(comment['commentid']) + "/"
         }
         json_comments.append(new_comment)
-    owner_img_url = connection.execute('''
-        SELECT filename
-        FROM users
-        WHERE username = ?
-    ''', (post['owner'],)).fetchone()
+    # owner_img_url = connection.execute('''
+    #     SELECT filename
+    #     FROM users
+    #     WHERE username = ?
+    # ''', (post['owner'],)).fetchone()
 
     context = {
         "comments": json_comments,
         "comments_url": "/api/v1/comments/?postid=" + str(postid_url_slug),
         "created": post['created'],
         "imgUrl": "/uploads/" + post['filename'],
-        "likes": {
-            "lognameLikesThis": logname_liked,
-            "numLikes": len(likes),
-            "url": f"/api/v1/likes/{str(logname_like_obj['likeid'])}/"
-            if logname_liked else None
-        },
+        # "likes": {
+        #     "lognameLikesThis": logname_liked,
+        #     "numLikes": len(likes),
+        #     "url": f"/api/v1/likes/{str(logname_like_obj['likeid'])}/"
+        #     if logname_liked else None
+        # },
         "owner": post['owner'],
-        "ownerImgUrl": "/uploads/" + owner_img_url['filename'],
+        # "ownerImgUrl": "/uploads/" + owner_img_url['filename'],
         "ownerShowUrl": f"/users/{post['owner']}/",
         "postShowUrl": f"/posts/{postid_url_slug}/",
         "postid": postid_url_slug,
