@@ -39,7 +39,7 @@ def show_index():
     posts = []
     for post in posts_query:
         post_id = post["postid"]
-        comments, profile= \
+        comments = \
             get_post_info(post["owner"], logname, post_id, connection)
 
         posts.append({
@@ -63,9 +63,4 @@ def get_post_info(post_owner, logname, post_id, connection):
         ORDER BY comments.commentid ASC
     ''', (post_id,)).fetchall()
     # to get owner profile pic
-    profile = connection.execute('''
-        SELECT users.filename
-        FROM users
-        WHERE users.username = ?
-    ''', (post_owner,)).fetchone()
-    return comments, profile
+    return comments

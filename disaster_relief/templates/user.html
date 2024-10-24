@@ -33,29 +33,6 @@
             <form action="{{url_for('logout')}}" method="post" enctype="multipart/form-data">
                 <input type="submit" name="logout" value="Logout"/>
             </form>
-            
-        {% else %}
-            {% if logname_follows_username == 0 %}
-                <form action="/following/?target={{url_for('show_user', username=username)}}" method="post" enctype="multipart/form-data">
-                    <input type="submit" name="follow" value="follow"/>
-                    <input type="hidden" name="username" value="{{username}}"/>
-                    <input type="hidden" name="operation" value="follow"/>
-                </form>
-            {% else %}
-                <form action="/following/?target={{url_for('show_user', username=username)}}" method="post" enctype="multipart/form-data">
-                    <input type="submit" name="unfollow" value="unfollow"/>
-                    <input type="hidden" name="username" value="{{username}}"/>
-                    <input type="hidden" name="operation" value="unfollow"/>
-                </form>
-            {% endif %}
-            <div class="isFollowing">
-                {% if logname_follows_username == 1 %}
-                    following
-                {% else %}
-                    not following
-                {% endif %}
-            </div>
-            
         {% endif %}
         <div class="info">
             <span class="numposts">
@@ -64,20 +41,6 @@
                 {% else %}
                     {{total_posts}} posts
                 {% endif %}
-            </span>
-            <span class="followers">
-                <a href = "/users/{{username}}/followers/">
-                    {%if followers == 1 %}
-                        1 follower
-                    {% else %}
-                        {{followers['COUNT(*)']}} followers
-                    {% endif %}
-                </a>
-            </span>
-            <span class="following">
-                <a href = "/users/{{username}}/following/">
-                {{following['COUNT(*)']}} following
-                </a>
             </span>
         </div>
         <div class="fullname">

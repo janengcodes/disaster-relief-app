@@ -43,8 +43,6 @@ case $1 in
 
   "dump")
     sqlite3 -batch -line var/disaster_relief.sqlite3 'SELECT * FROM comments'
-    sqlite3 -batch -line var/disaster_relief.sqlite3 'SELECT * FROM following'
-    sqlite3 -batch -line var/disaster_relief.sqlite3 'SELECT * FROM likes'
     sqlite3 -batch -line var/disaster_relief.sqlite3 'SELECT * FROM posts'
     sqlite3 -batch -line var/disaster_relief.sqlite3 'SELECT * FROM users'
     ;;

@@ -32,34 +32,13 @@ def show_user(username):
         "WHERE f.username = ?",
         (username,),).fetchall()
 
-    # query database for following, user1 is following user2
-    following_count = connect.execute(
-        "SELECT COUNT(*) "
-        "FROM following "
-        "WHERE username1 = ? ",
-        (username,),).fetchone()
+
     # query database for whether logname is following username
     logname = flask.session.get('username')
-    # (returns 0 if not following or 1 if following)
-    is_following = connect.execute(
-        "SELECT COUNT(*) "
-        "FROM following "
-        "WHERE username1 = ? "
-        "AND username2 = ? ",
-        (logname, username),).fetchone()
-    print(is_following)
-    # query database for followers
-    follower_count = connect.execute(
-        "SELECT COUNT(*) "
-        "FROM following "
-        "WHERE username2 = ? ",
-        (username,),).fetchone()
 
     # Add database info to context
     context = {"username": username, "logname": logname, "posts": posts,
-               "fullname": fullname, "following": following_count,
-               "followers": follower_count, "total_posts": len(posts),
-               "logname_follows_username": is_following['COUNT(*)']}
+               "fullname": fullname, "total_posts": len(posts)}
     return flask.render_template("user.html", **context)
 
 

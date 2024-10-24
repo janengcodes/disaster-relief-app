@@ -15,14 +15,16 @@ a {
 }
 
 .post {
-    border: 1px solid rgb(167, 164, 164);
-    width: 600px;
-    display: inline-block;
+    border-radius: 20px;
+    width: 80%;
+    display: flex;
     margin-bottom: 50px;
+    background-color: rgb(236, 183, 85);
 }
 
 .post .pic img{
-    width: 600px;
+    width: 400px;
+    margin: 20px;
 }
 
 .posts {
@@ -108,4 +110,8 @@ a {
 
 .logo {
     width: 70px;
+}
+
+body {
+    background-color: lightyellow;
 }

@@ -19,38 +19,38 @@ VALUES ('jag', 'H.V. Jagadish', 'jag@umich.edu',
 
 
 INSERT INTO posts(postid, filename, owner)
-VALUES (1, '122a7d27ca1d7420a1072f695d9290fad4501a41.jpg', 'awdeorio');
+VALUES (1, 'fire.jpg', 'awdeorio');
 
 INSERT INTO posts(postid, filename, owner)
-VALUES (2, 'ad7790405c539894d25ab8dcf0b79eed3341e109.jpg', 'jflinn');
+VALUES (2, 'fire.jpg', 'jflinn');
  
 INSERT INTO posts(postid, filename, owner)
-VALUES (3, '9887e06812ef434d291e4936417d125cd594b38a.jpg', 'awdeorio');
+VALUES (3, 'fire.jpg', 'awdeorio');
 
 INSERT INTO posts(postid, filename, owner)
-VALUES (4, '2ec7cf8ae158b3b1f40065abfb33e81143707842.jpg', 'jag');
+VALUES (4, 'fire.jpg', 'jag');
 
 
 
 INSERT INTO comments(commentid, owner, postid, text)
-VALUES (1, 'awdeorio', 3, '#chickensofinstagram'); 
+VALUES (1, 'awdeorio', 3, 'do you need help?'); 
 
 INSERT INTO comments(commentid, owner, postid, text)
-VALUES (2, 'jflinn', 3, 'I <3 chickens');
+VALUES (2, 'jflinn', 3, 'sending over some support right now!');
 
 INSERT INTO comments(commentid, owner, postid, text)
-VALUES (3, 'michjc', 3, 'Cute overload!');
+VALUES (3, 'michjc', 3, 'hope you are okay');
 
 INSERT INTO comments(commentid, owner, postid, text)
-VALUES (4, 'awdeorio', 2, 'Sick #crossword');
+VALUES (4, 'awdeorio', 2, 'reach out if you need anything!');
 
 INSERT INTO comments(commentid, owner, postid, text)
-VALUES (5, 'jflinn', 1, 'Walking the plank #chickensofinstagram');
+VALUES (5, 'jflinn', 1, 'my friend lives nearby, she will come help');
 
 INSERT INTO comments(commentid, owner, postid, text)
-VALUES (6, 'awdeorio', 1, 'This was after trying to teach them to do a #crossword');
+VALUES (6, 'awdeorio', 1, 'I did not know this was happening so close by');
 
 INSERT INTO comments(commentid, owner, postid, text)
-VALUES (7, 'jag', 4, 'Saw this on the diag yesterday!');
+VALUES (7, 'jag', 4, 'Im so sorry');
 
 
