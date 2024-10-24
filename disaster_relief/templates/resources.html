@@ -7,13 +7,18 @@
     <title>disaster_relief</title>
 
     <style>
-        html,
-        body,
+       html,
+        body {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
         #viewDiv {
-          padding: 0;
-          margin: 0;
-          height: 100%;
-          width: 100%;
+            padding: 0;
+            margin: 0;
+            height: 500px; /* Set the desired height */
+            width: 100%;    /* Keep width as 100% or adjust if needed */
         }
       </style>
        <link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/light/main.css">
@@ -40,7 +45,7 @@
             container: "viewDiv" // Div element
           });
   
-          const places = ["Choose a place type...", "Parks and Outdoors", "Coffee shop", "Gas station", "Food", "Hotel", "Grocery"];
+          const places = ["Choose a place type...", "Hospital", "Power Station", "Gas station", "Convenience Store", "Food", "Hotel", "Grocery"];
           const select = document.createElement("select");
           select.setAttribute("class", "esri-widget esri-select");
           select.setAttribute("style", "width: 175px; font-family: 'Avenir Next W00'; font-size: 1em");
@@ -112,7 +117,7 @@
         <div class="heading">
             <a href="/">
                 <!-- <img src="/static/images/ig_logo.png" alt="Instagram logo" class="logo"> -->
-                <span class="ttl">Disaster Relief</span>
+                <span class="ttl">CrisisCenter</span>
             </a>
             <div class="right">
                 <a href="/resources/">Resources</a> |

@@ -30,19 +30,6 @@ def show_resources():
     # Query database
     logname = flask.session.get('username')
     # Query database for users that logname does not follow
-    not_following = connection.execute(
-        "SELECT u.* "
-        "FROM users u "
-        "WHERE u.username NOT IN ( "
-        "   SELECT username2 "
-        "   FROM following "
-        "   WHERE username1 = ? "
-        ") "
-        "AND u.username != ? ",
-        (logname, logname),).fetchall()
-    len_not_following = len(not_following)
     # Add database info to context
-    context = {"logname": logname,
-               "not_following": not_following,
-               "len_not_following": len_not_following}
+    context = {"logname": logname}
     return flask.render_template("resources.html", **context)

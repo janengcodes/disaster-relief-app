@@ -10,12 +10,11 @@
     <div>
         <div class="heading">
             <a href="/">
-                <img src="/static/images/ig_logo.png" alt="Instagram logo" class="logo">
-                 <span class = "ttl"> disaster_relief</span>
+                 <span class = "ttl"> CrisisCenter</span>
             </a> 
             <div class = "right">
-                <a href = "/explore/">
-                    explore 
+                <a href = "/resources/">
+                    Resources 
                 </a>
                 |
                 <a href = "{{url_for('show_user', username=logname)}}">
@@ -25,10 +24,8 @@
         </div>
     </div>
         <div class = "post" >
-            
             <div class="user">
                 <a href = "/users/{{owner}}/">
-                    <img src = "/uploads/{{profile_pic['filename']}}" alt = "prof">
                     {{owner}}
                 </a>
                 <span class="time">
@@ -39,15 +36,6 @@
             </div>
             <div class="pic">
                 <img src = "/uploads/{{filename}}" class = "pic" alt = "post">
-            </div>
-            
-    
-            <div class="likes">
-                {% if likeCount == 1 %}
-                    1 like
-                {% else %}
-                    {{likeCount}} likes
-                {% endif %}
             </div>
 
             <div class="comments">
@@ -69,19 +57,6 @@
                 </div>
                 {% endfor %}
             </div>
-            {%if ifLiked == 0%}
-                <form action="/likes/?target={{url_for('show_post', postid=postid)}}" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="operation" value="like"/>
-                    <input type="hidden" name="postid" value="{{postid}}"/>
-                    <input type="submit" name="like" value="like"/>
-                </form>
-            {% else %}
-                <form action="/likes/?target={{url_for('show_post', postid=postid)}}" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="operation" value="unlike"/>
-                    <input type="hidden" name="postid" value="{{postid}}"/>
-                    <input type="submit" name="unlike" value="unlike"/>
-                </form>
-            {% endif %}
             <form action="/comments/?target={{url_for('show_post', postid=postid)}}" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="operation" value="create"/>
                 <input type="hidden" name="postid" value="{{postid}}"/>
