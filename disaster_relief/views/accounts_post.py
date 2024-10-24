@@ -61,10 +61,11 @@ def create():
         abort(404)
 
     hash_obj = hashlib.new('sha512')
-    password_salted = uuid.uuid4().hex + password
+    salt = uuid.uuid4().hex
+    password_salted = salt + password
     hash_obj.update(password_salted.encode('utf-8'))
-    password_db_string = "$".join(['sha512',
-                                  uuid.uuid4().hex, hash_obj.hexdigest()])
+    password_db_string = "$".join(['sha512', salt, hash_obj.hexdigest()])
+
 
     # Add to database
     connection.execute('''
@@ -147,6 +148,7 @@ def login():
     # real_password['password'] is the password in the database
     # password_db_string is the password inputted in the form
     if password_db_string != real_password['password']:
+        print(password_db_string, real_password['password'] )
         abort(403)
 
     # set a session cookie
