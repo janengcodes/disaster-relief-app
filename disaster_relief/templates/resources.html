@@ -5,6 +5,107 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/style.css"> 
     <title>disaster_relief</title>
+
+    <style>
+        html,
+        body,
+        #viewDiv {
+          padding: 0;
+          margin: 0;
+          height: 100%;
+          width: 100%;
+        }
+      </style>
+       <link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/light/main.css">
+       <script src="https://js.arcgis.com/4.30/"></script>
+       <script>
+        require([
+          "esri/config",
+          "esri/Map",
+          "esri/views/MapView",
+          "esri/rest/locator",
+          "esri/Graphic",
+          "esri/core/reactiveUtils"
+        ], (esriConfig, Map, MapView, locator, Graphic, reactiveUtils) => {
+  
+          esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurA6cdLRhE5w3TTgmOuWwrOC1Y36bl5224oc1XOKrlfvikbr0nzAb71JdF4ptEZvDMET7ZgWMK82H9F367uth3WLHi66EP5vq5hbRVDv9UuewV9aufHfsB9mdvfcwj-CqHUjHtWOdsSAUW0P00wOyh70OAGjF7fnujQTp0a511QdPnMkQ6k3koiaTjp_Lc1M--yk-ajUbUOoxcv7nO6gKV8E.AT1_O2L5risA";
+  
+          const map = new Map({
+              basemap: "arcgis/navigation" // basemap styles service
+          });
+          const view = new MapView({
+            map: map,
+            center: [ -80.19270105751276, 25.76767750952814], // Longitude, latitude
+            zoom: 13, // Zoom level
+            container: "viewDiv" // Div element
+          });
+  
+          const places = ["Choose a place type...", "Parks and Outdoors", "Coffee shop", "Gas station", "Food", "Hotel", "Grocery"];
+          const select = document.createElement("select");
+          select.setAttribute("class", "esri-widget esri-select");
+          select.setAttribute("style", "width: 175px; font-family: 'Avenir Next W00'; font-size: 1em");
+          places.forEach((p) => {
+            const option = document.createElement("option");
+            option.value = p;
+            option.innerHTML = p;
+            select.appendChild(option);
+          });
+          view.ui.add(select, "top-right");
+          const locatorUrl = "http://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer";
+           // Find places and add them to the map
+           function findPlaces(category, pt) {
+            locator
+              .addressToLocations(locatorUrl, {
+                location: pt,
+                categories: [category],
+                maxLocations: 25,
+                outFields: ["Place_addr", "PlaceName"]
+              })
+              .then((results) => {
+                view.closePopup();
+                view.graphics.removeAll();
+  
+                results.forEach((result) => {
+                  view.graphics.add(
+                    new Graphic({
+                      attributes: result.attributes, // Data attributes returned
+                      geometry: result.location, // Point returned
+                      symbol: {
+                        type: "simple-marker",
+                        color: "#000000",
+                        size: "12px",
+                        outline: {
+                          color: "#ffffff",
+                          width: "2px"
+                        }
+                      },
+  
+                      popupTemplate: {
+                        title: "{PlaceName}", // Data attribute names
+                        content: "{Place_addr}"
+                      }
+                    })
+                  );
+                });
+  
+              });
+              
+  
+  
+          }
+           // Search for places in center of map
+           reactiveUtils.when(
+            () => view.stationary,
+            () => {
+              findPlaces(select.value, view.center);
+            }
+          );
+            // Listen for category changes and find places
+            select.addEventListener("change", (event) => {
+            findPlaces(event.target.value, view.center);
+          });
+      });
+      </script>
 </head>
 <body>
     <div>
@@ -17,7 +118,10 @@
                 <a href="/resources/">Resources</a> |
                 <a href="{{url_for('show_user', username=logname)}}">{{logname}}</a>
             </div>
-            <h1 style="text-align: center"> Resources </h1>
+            <h1 style="text-align: center"> Resources</h1>
         </div>
     </div>
+    <div id="viewDiv"></div>
 </body>
+
+
