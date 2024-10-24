@@ -34,7 +34,6 @@ def comments():
     if 'username' not in flask.session:
         return flask.redirect(flask.url_for('login'))
     logname = flask.session.get('username')
-    print("logname ", logname)
     operation = request.form.get('operation')
     postid = request.form.get('postid')
     commentid = request.form.get('commentid')
@@ -53,8 +52,7 @@ def comments():
             FROM comments
             WHERE commentid = ?
         ''', (commentid,)).fetchone()
-        if commentowner['owner'] is None:
-            abort(403)
+
         if commentowner['owner'] != logname:
             abort(403)
 
