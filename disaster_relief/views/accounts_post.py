@@ -4,7 +4,6 @@ disaster_relief accounts_ (main) view.
 URLs include:
 /
 """
-import pathlib
 import uuid
 import os
 import hashlib
@@ -54,21 +53,11 @@ def create():
     # set session cookies
     # maybe move up
     flask.session['username'] = username
-    fileobj = flask.request.files["file"]
-    filename = fileobj.filename
-
-    stem = uuid.uuid4().hex
-    suffix = pathlib.Path(filename).suffix.lower()
-    uuid_basename = f"{stem}{suffix}"
-
-    # Save to disk
-    path = disaster_relief.app.config["UPLOAD_FOLDER"]/uuid_basename
-    fileobj.save(path)
 
     # Check if any of fields are empty --> abort 404
     if len(username) == 0 or len(password) == 0:
         abort(404)
-    if len(fullname) == 0 or len(email) == 0 or not filename:
+    if len(fullname) == 0 or len(email) == 0:
         abort(404)
 
     hash_obj = hashlib.new('sha512')
@@ -79,9 +68,9 @@ def create():
 
     # Add to database
     connection.execute('''
-        INSERT INTO users(username, password, fullname, email, filename)
-        VALUES (?, ?, ?, ?, ?)
-    ''', (username, password_db_string, fullname, email, uuid_basename))
+        INSERT INTO users(username, password, fullname, email)
+        VALUES (?, ?, ?, ?)
+    ''', (username, password_db_string, fullname, email))
 
     return flask.redirect(flask.request.args.get('target', '/'))
 
@@ -100,15 +89,6 @@ def delete():
             FROM posts
             WHERE posts.owner = ?
         ''', (logname,),).fetchall()
-    # delete pfp
-    old_pfp = connection.execute('''
-            SELECT filename
-            FROM users
-            WHERE username = ?
-        ''', (logname,),).fetchone()
-
-    path_pfp = disaster_relief.app.config["UPLOAD_FOLDER"]/old_pfp['filename']
-    os.remove(path_pfp)
 
     for old_post in old_posts:
         path = disaster_relief.app.config["UPLOAD_FOLDER"]/old_post['filename']
@@ -251,47 +231,16 @@ def edit_account():
     logname = flask.session.get('username')
     fullname = request.form.get('fullname')
     email = request.form.get('email')
-    updated_filename = request.files["file"]
     # If the fullname or email fields are empty, abort(400).
 
     if len(fullname) == 0 or len(email) == 0:
         abort(400)
-
-    if updated_filename:
-        # If the user uploads a new photo, save it to the filesystem
-        # Delete old photo from file system
-        old_file = connection.execute('''
-            SELECT filename
-            FROM users
-            WHERE username = ?
-        ''', (logname,),).fetchone()
-
-        path = disaster_relief.app.config["UPLOAD_FOLDER"]/old_file['filename']
-        os.remove(path)
-        # Unpack flask object
-        fileobj = flask.request.files["file"]
-        filename = fileobj.filename
-
-        stem = uuid.uuid4().hex
-        suffix = pathlib.Path(filename).suffix.lower()
-        uuid_basename = f"{stem}{suffix}"
-
-        # Save to disk
-        path = disaster_relief.app.config["UPLOAD_FOLDER"]/uuid_basename
-        fileobj.save(path)
-        # Updates profile
-        connection.execute('''
-            UPDATE users
-            SET fullname = ?, email = ?, filename = ?
-            WHERE username = ?
-        ''', (fullname, email, uuid_basename, logname,))
-
-    else:
-        connection.execute('''
-            UPDATE users
-            SET fullname = ?, email = ?
-            WHERE username = ?
-        ''', (fullname, email, logname,),)
+    
+    connection.execute('''
+        UPDATE users
+        SET fullname = ?, email = ?
+        WHERE username = ?
+    ''', (fullname, email, logname,),)
 
     target = flask.request.args.get('target', '/')
     return flask.redirect(target)

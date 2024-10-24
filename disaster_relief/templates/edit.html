@@ -9,7 +9,6 @@
 <body>
     <div class="heading">
         <a href="/">
-            <img src="/static/images/ig_logo.png" alt="Instagram logo" class="logo">
                 <span class = "ttl"> disaster_relief</span>
         </a> 
         <div class = "right">
@@ -24,10 +23,7 @@
     </div>
     <div>
     {{logname}}
-    </div>  
-    <div>
-    <img src = "/uploads/{{photo}}" alt = "user image">
-    </div>
+    </div>   
     <div>
     {{email}}
     </div>
@@ -38,7 +34,6 @@
     <a href="/accounts/delete/">Delete Account</a>
     </div>
     <form action="/accounts/?target=/accounts/edit/" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" accept="image/*"/>
         <input type="text" name="fullname" value="{{fullname}}" required placeholder = "fullname"/>
         <input type="text" name="email" value="{{email}}" required placeholder = "email"/>
         <input type="submit" name="update" value="submit"/>

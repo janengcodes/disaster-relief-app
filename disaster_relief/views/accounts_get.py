@@ -96,11 +96,6 @@ def edit():
         return flask.redirect(flask.url_for('login'))
     connection = disaster_relief.model.get_db()
     logname = flask.session.get('username')
-    # photo = connection.execute(
-    #         "SELECT f.filename "
-    #         "FROM users f "
-    #         "WHERE f.username = ?",
-    #         (logname,),).fetchall()
 
     # get user fullname
     fullname = connection.execute(
@@ -118,7 +113,6 @@ def edit():
 
     context = {
         "logname": logname,
-        "photo": photo[0]['filename'],
         "fullname": fullname[0]['fullname'],
         "email": email[0]['email']
     }
