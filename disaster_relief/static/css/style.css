@@ -115,3 +115,58 @@ a {
 body {
     background-color: lightyellow;
 }
+
+
+.formDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+}
+.formContainer {
+    display:flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    background-color: #debb48;
+    padding: 50px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    color: rgb(191, 166, 73);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 4px;
+}
+
+input[type="submit"]:hover {
+    background-color: #ccb79d;
+}
+
+/* a {
+    display: block;
+    margin-top: 15px;
+    color: #007bff;
+    text-decoration: none;
+} */
+
+a:hover {
+    text-decoration: underline;
+}

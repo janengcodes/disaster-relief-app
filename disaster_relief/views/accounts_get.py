@@ -6,10 +6,12 @@ URLs include:
 """
 
 import flask
-from flask import abort
+from flask import abort, render_template
 import disaster_relief
 
 disaster_relief.app.secret_key = disaster_relief.app.config['SECRET_KEY']
+
+
 
 
 @disaster_relief.app.route('/accounts/login/', methods=['GET'])
@@ -17,20 +19,7 @@ def login():
     """Display the login page."""
     if 'username' in flask.session:
         return flask.redirect(flask.url_for('show_index'))
-    # Render the login form
-    return '''
-        <form action="/accounts/?target=/" method="post"
-        enctype="multipart/form-data">
-            <input type="text" name="username"
-            required placeholder = "username"/>
-            <input type="password" name="password"
-            required placeholder = "password"/>
-            <input type="submit" value="login"/>
-            <input type="hidden" name="operation" value="login"/>
-        </form>
-    Don't have an account?
-    <a href="/accounts/create/">Sign up</a>
-    '''
+    return render_template('login.html')
 
 
 @disaster_relief.app.route('/accounts/create/', methods=['GET'])
@@ -38,27 +27,7 @@ def create():
     """Display /accounts/create route."""
     if 'username' in flask.session:
         return flask.redirect(flask.url_for('edit'))
-    # if 'username' in flask.session:
-    #     return flask.redirect(flask.url_for('login'))
-    # Render the login form
-    # http://localhost:8000/accounts/create/accounts/?target=/
-    return '''
-        <!-- DO NOT CHANGE THIS (aside from styling) -->
-        <form action="/accounts/?target=/" method="post"
-        enctype="multipart/form-data">
-            <input type="text" name="fullname" required
-            placeholder="Full Name"/>
-            <input type="text" name="username" required
-            placeholder="username"/>
-            <input type="text" name="email" required
-            placeholder="email"/>
-            <input type="password" name="password" required
-            placeholder="password"/>
-            <input type="submit" name="signup" value="sign up"/>
-            <input type="hidden" name="operation" value="create"/>
-        </form>
-        <p>Have an account? <a href="/accounts/login/">Login</a></p>
-    '''
+    return render_template('create.html')
 
 
 @disaster_relief.app.route('/accounts/delete/', methods=['GET'])
