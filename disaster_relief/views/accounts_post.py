@@ -115,6 +115,8 @@ def login():
 
     # If the username or password fields are empty, abort(400).
     if len(username) == 0 or len(password) == 0:
+        target = flask.request.args.get('target', '/')
+        return flask.redirect(target)
         abort(400)
 
     # If username and password authentication fails, abort(403).
@@ -127,6 +129,8 @@ def login():
     ''', (username,),).fetchone()
     # If username doesn't exist
     if username_check['COUNT(*)'] == 0:
+        target = flask.request.args.get('target', '/')
+        return flask.redirect(target)
         abort(403)
     # grab salt
     real_password = connection.execute('''
@@ -149,6 +153,8 @@ def login():
     # password_db_string is the password inputted in the form
     if password_db_string != real_password['password']:
         print(password_db_string, real_password['password'] )
+        target = flask.request.args.get('target', '/')
+        return flask.redirect(target)
         abort(403)
 
     # set a session cookie

@@ -15,11 +15,10 @@ a {
 }
 
 .post {
-    border-radius: 20px;
     width: 80%;
     display: flex;
     margin-bottom: 50px;
-    background-color: rgb(236, 183, 85);
+    background-color: rgb(207, 200, 188);
 }
 
 .post .pic img{
@@ -113,7 +112,7 @@ a {
 }
 
 body {
-    background-color: lightyellow;
+    background-color: rgb(255, 255, 255);
 }
 
 
@@ -131,10 +130,10 @@ body {
 }
 
 form {
-    background-color: #debb48;
+    background-color:rgb(207, 200, 188);
     padding: 50px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* border-radius: 12px; */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
     width: 300px;
     text-align: center;
 }
@@ -144,11 +143,11 @@ input[type="text"], input[type="password"] {
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    /* border-radius: 4px; */
 }
 
 input[type="submit"] {
-    color: rgb(191, 166, 73);
+    color:  rgb(207, 200, 188);
     border: none;
     padding: 10px;
     cursor: pointer;
@@ -157,7 +156,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #ccb79d;
+    background-color:  rgb(207, 200, 188);
 }
 
 /* a {
