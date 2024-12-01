@@ -13,6 +13,7 @@ import disaster_relief
 def show_user(username):
     """Render template for users."""
     if 'username' not in flask.session:
+        flask.session.clear()
         return flask.redirect(flask.url_for('login'))
 
     connect = disaster_relief.model.get_db()
