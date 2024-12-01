@@ -266,19 +266,23 @@ function Post(_ref) {
     className: "comments"
   }, comments.map(function (comment) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("div", {
-      key: comment.commentid
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("p", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("a", {
+      key: comment.commentid,
+      className: "user-comment"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("a", {
+      className: "commentOwner",
       href: "/users/".concat(comment.owner, "/")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("b", null, comment.owner))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("span", {
+    }, comment.owner), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("span", {
       "data-testid": "comment-text"
-    }, comment.text), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("p", null, comment.lognameOwnsThis && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("button", {
+    }, comment.text), comment.lognameOwnsThis && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("button", {
       type: "button",
       "data-testid": "delete-comment-button",
       onClick: function onClick() {
         return deleteComment(comment.commentid);
-      }
-    }, "Delete")));
+      },
+      className: "delete-button"
+    }, "Delete"));
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("form", {
+    className: "commentForm",
     "data-testid": "comment-form",
     onSubmit: handleSubmit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("input", {

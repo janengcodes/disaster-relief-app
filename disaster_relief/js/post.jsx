@@ -124,7 +124,9 @@ export default function Post({ url }) {
   // Render post image and post owner
   return (
     <div className="posts">
+      
       <div className="post">
+
         <div className="user">
           <a href={`/users/${owner}/`}>
             <p>{owner}</p>
@@ -138,35 +140,36 @@ export default function Post({ url }) {
             alt="post_image"
           />
         </div>
+
         <div className="comments">
           {comments.map((comment) => (
-            <div key={comment.commentid}>
-              <p>
-                <a href={`/users/${comment.owner}/`}>
-                  <b>{comment.owner}</b>
+            <div key={comment.commentid} className="user-comment">
+
+                <a className="commentOwner" href={`/users/${comment.owner}/`}>
+                {comment.owner}
                 </a>
-              </p>
-              <span data-testid="comment-text">{comment.text}</span>
-              <p>
+                <span data-testid="comment-text">{comment.text}</span>
                 {comment.lognameOwnsThis && (
                   <button
                     type="button"
                     data-testid="delete-comment-button"
                     onClick={() => deleteComment(comment.commentid)}
+                    className="delete-button"
                   >
                     Delete
                   </button>
                 )}
-              </p>
             </div>
           ))}
-          <form data-testid="comment-form" onSubmit={handleSubmit}>
+
+          <form className="commentForm" data-testid="comment-form" onSubmit={handleSubmit}>
             <input
               type="text"
               name="myInput"
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
             />
+
           </form>
         </div>
       </div>
