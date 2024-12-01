@@ -40,25 +40,29 @@ def comments():
     text = request.form.get('text')
     connection = disaster_relief.model.get_db()
     if operation == 'create':
-        if len(text) == 0:
-            abort(400)
-        connection.execute('''
-            INSERT INTO comments(owner, text, postid)
-            VALUES (?, ?, ?)
-        ''', (logname, text, postid))
+        if text != '':
+            cur = connection.execute(
+                "INSERT INTO comments (owner, text, postid) VALUES (?, ?, ?)",
+                (logname, postid, text)
+            )
+            connection.commit()
+        else:
+            return abort(400)
     elif operation == 'delete':
-        commentowner = connection.execute('''
-            SELECT comments.owner
-            FROM comments
-            WHERE commentid = ?
-        ''', (commentid,)).fetchone()
+        cur = connection.execute(
+            "SELECT * FROM comments WHERE commentid = ? AND owner = ?",
+            (commentid, logname)
+        )
+        is_your_comment = cur.fetchone()
+        print("owner", is_your_comment)
+        if is_your_comment is not None:
+            cur = connection.execute(
+                "DELETE FROM comments WHERE commentid = ?",
+                (commentid,)
+            )
+            connection.commit()
+        else:
+            return abort(403)
 
-        if commentowner['owner'] != logname:
-            abort(403)
-
-        connection.execute('''
-            DELETE FROM comments
-            WHERE commentid = ?
-        ''', (commentid,))
     target = flask.request.args.get('target', '/')
     return flask.redirect(target)
