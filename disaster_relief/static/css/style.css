@@ -35,7 +35,8 @@ a {
 }
 
 .post {
-    width: 30%;
+    width: 40%;
+    min-width: 25%;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
