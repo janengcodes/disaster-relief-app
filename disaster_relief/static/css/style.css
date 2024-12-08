@@ -32,6 +32,7 @@ a {
     flex-direction: row; /* Default: row */
     gap: 20px; /* Optional: spacing between rows/columns */
     justify-content: center;
+    align-items: center;
 }
 
 .post {
@@ -44,6 +45,8 @@ a {
     border: solid 0.5px rgb(174, 174, 174);
     border-radius: 8px;
     box-shadow: 0 5px 7px rgba(0, 0, 0, 0.1);
+    justify-self: center;
+    align-self: center;
 }
 
 .post .pic img{
