@@ -5,8 +5,24 @@
 # A .gitignore file will tell git which files and directories to ignore and
 # not add to version control.
 
-/disaster_relief/html/
 
+# Ignore Python bytecode files
+**/__pycache__/
+*.pyc
+
+# Ignore local binaries
+bin/disaster_reliefrun
+
+# Ignore static build artifacts
+disaster_relief/static/js/bundle.js
+disaster_relief/static/js/bundle.js.map
+
+# Ignore virtual environment files
+env/
+
+/disaster_relief/html/
+disaster_relief/__pycache__/*
+env/*
 *.pem
 *.db
 var/

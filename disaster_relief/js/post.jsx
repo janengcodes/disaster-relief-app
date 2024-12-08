@@ -123,7 +123,7 @@ export default function Post({ url }) {
 
   // Render post image and post owner
   return (
-    <div className="posts">
+
       
       <div className="post">
 
@@ -173,7 +173,6 @@ export default function Post({ url }) {
           </form>
         </div>
       </div>
-    </div>
   );
 }
 

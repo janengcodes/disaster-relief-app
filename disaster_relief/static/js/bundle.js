@@ -248,8 +248,6 @@ function Post(_ref) {
 
   // Render post image and post owner
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("div", {
-    className: "posts"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("div", {
     className: "post"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2___default().createElement("div", {
     className: "user"
@@ -292,7 +290,7 @@ function Post(_ref) {
     onChange: function onChange(e) {
       return setCommentText(e.target.value);
     }
-  })))));
+  }))));
 }
 Post.propTypes = {
   url: (prop_types__WEBPACK_IMPORTED_MODULE_6___default().string).isRequired
