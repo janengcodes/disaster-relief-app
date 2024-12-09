@@ -2,17 +2,23 @@ const path = require("path");
 const { existsSync } = require("fs");
 
 // Set the entrypoint to main.jsx by default, but main.tsx if using TypeScript.
-let entry = "./disaster_relief/js/main.jsx";
-if (existsSync("./disaster_relief/js/main.tsx")) {
-  entry = "./disaster_relief/js/main.tsx";
-}
+// let main = "./disaster_relief/js/main.jsx";
+// let map = "./disaster_relief/js/map.jsx";
+
+// if (existsSync("./disaster_relief/js/main.tsx")) {
+//   main = "./disaster_relief/js/main.tsx";
+//   map =  "./disaster_relief/js/map.jsx";
+// }
 
 module.exports = {
   mode: "development",
-  entry,
+  entry: {
+    main: "./disaster_relief/js/main.jsx", // Main page entry point
+    map: "./disaster_relief/js/map.jsx",  // Map page entry point
+  },
   output: {
     path: path.join(__dirname, "/disaster_relief/static/js/"),
-    filename: "bundle.js",
+    filename: "[name].bundle.js", // Outputs main.bundle.js and map.bundle.js
   },
   devtool: "source-map",
   module: {

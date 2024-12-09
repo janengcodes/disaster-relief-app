@@ -21,7 +21,7 @@
         }
     </style>
     <link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/light/main.css">
-    <script src="https://js.arcgis.com/4.30/"></script>
+    <!-- <script src="https://js.arcgis.com/4.30/"></script>
     <script>
         let positionData = {};
 
@@ -142,7 +142,7 @@
 
         // Automatically get location when the page loads
         window.onload = getLocation;
-    </script>
+    </script> -->
 </head>
 <body>
     <div>
@@ -158,5 +158,7 @@
         </div>
     </div>
     <div id="viewDiv"></div>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/resources.bundle.js') }}"></script>
+
 </body>
 </html>
