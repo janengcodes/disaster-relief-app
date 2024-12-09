@@ -25,13 +25,15 @@
         <div class="uname">
             {{username}}
         </div>
-
+        <div class="fullname">
+            {{fullname[0].fullname}}
+         </div>
         {% if logname == username %}
             <div class="edit">
                 <a href= "/accounts/edit/">Edit profile</a>
             </div>
             <form action="{{url_for('logout')}}" method="post" enctype="multipart/form-data">
-                <input type="submit" name="logout" value="Logout"/>
+                <input class = "logout" type="submit" name="logout" value="Logout"/>
             </form>
         {% endif %}
         <div class="info">
@@ -43,9 +45,7 @@
                 {% endif %}
             </span>
         </div>
-        <div class="fullname">
-            {{fullname[0].fullname}}
-         </div>
+        
         <div>
             {% if logname == username %}
             <form action="/posts/?target={{url_for('show_user', username = username)}}" method="post" enctype="multipart/form-data">

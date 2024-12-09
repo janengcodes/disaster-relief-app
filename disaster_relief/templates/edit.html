@@ -22,10 +22,10 @@
         </div>   
     </div>
     <div>
-    {{logname}}
+    Username: {{logname}}
     </div>   
     <div>
-    {{email}}
+    Email: {{email}}
     </div>
     <div>
     <a href="/accounts/password/">Change Password</a>
@@ -34,8 +34,8 @@
     <a href="/accounts/delete/">Delete Account</a>
     </div>
     <form action="/accounts/?target=/users/{{logname}}/" method="post" enctype="multipart/form-data">
-        <input type="text" name="fullname" value="{{fullname}}" required placeholder = "fullname"/>
-        <input type="text" name="email" value="{{email}}" required placeholder = "email"/>
+        <label>Full Name: </label><input type="text" name="fullname" value="{{fullname}}" required placeholder = "fullname"/>
+        <label>Email: </label><input type="text" name="email" value="{{email}}" required placeholder = "email"/>
         <input type="submit" name="update" value="submit"/>
         <input type="hidden" name="operation" value="edit_account"/>
     </form>

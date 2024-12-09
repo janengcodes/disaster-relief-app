@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/light/main.css">
     <script src="https://js.arcgis.com/4.30/"></script>
     <script>
+    //    import React, { useState, useEffect } from "react";
+    //    const [places, setResults] = useState([]);
+
         let positionData = {};
 
         function getLocation() {
@@ -100,6 +103,7 @@
                         .then((results) => {
                             view.closePopup();
                             view.graphics.removeAll();
+                            setResults(results)
 
                             results.forEach((result) => {
                                 view.graphics.add(
@@ -122,6 +126,8 @@
                                     })
                                 );
                             });
+
+
                         });
                 }
 
@@ -142,6 +148,7 @@
 
         // Automatically get location when the page loads
         window.onload = getLocation;
+        
     </script>
 </head>
 <body>
@@ -158,5 +165,6 @@
         </div>
     </div>
     <div id="viewDiv"></div>
+    <!-- <div>{places}</div> -->
 </body>
 </html>
