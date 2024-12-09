@@ -192,7 +192,7 @@ input[type="text"], input[type="password"] {
     border: 1px solid #ccc;
 }
 
-input[type="submit"] {
+/* input[type="submit"] {
     color:  rgb(0, 0, 0);
     border: none;
     padding: 10px;
@@ -203,8 +203,21 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color:  rgb(207, 200, 188);
+} */
+.edit {
+    display: flex; /* Keep it inline-like but allow better alignment */
 }
 
+
+.logout_button {
+    display: flex; /* Make the button behave like an inline element */
+    background-color: rgb(255, 189, 189);
+    color: rgb(92, 92, 92);
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: -45%;
+}
 
 /* a {
     display: block;
@@ -216,3 +229,46 @@ input[type="submit"]:hover {
 a:hover {
     text-decoration: underline;
 }
+
+.pic_upload {
+    margin-left:-25%;
+}
+
+.upload_post {
+    margin-top: 2%;
+}
+
+.create {
+    font-size: 25px;
+}
+
+.upload-btn {
+    border-radius: 50%;
+    background-color: green;
+    color: white;
+    border-color: black;
+}
+
+
+.edit {
+    display: flex;
+    margin-top: -2%;
+    align-items: center; 
+    gap: 10px;  /* Optional: space between the link and button */
+}
+
+.edit a {
+    display: inline-block; /* Keeps the link inline */
+    margin-right: 10px;  /* Optional: space between the link and button */
+}
+
+.logout_button {
+    display: inline-block;  /* Ensures the button stays inline */
+    background-color: rgb(255, 189, 189);
+    color: rgb(92, 92, 92);
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 5px 10px;  /* Adjust padding for better button appearance */
+}
+

@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/css/style.css"> 
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>disaster_relief</title>
+
 </head>
+
 <body>
     <div>
         <div class="heading">
@@ -16,9 +20,10 @@
             </a>
             <div class="right">
                 <a href="/resources/">Resources</a> |
-                <a href="{{url_for('show_user', username=logname)}}">{{logname}}</a>
+                <a href="{{url_for('show_user', username=logname)}}">{{logname}}</a> 
+                
             </div>
-            <h1 style="text-align: center"> User </h1>
+            <h1 style="text-align: center"> Profile </h1>
         </div>
     </div>
     <div class="bio">
@@ -27,47 +32,58 @@
         </div>
         <div class="fullname">
             {{fullname[0].fullname}}
-         </div>
+        </div>
         {% if logname == username %}
-            <div class="edit">
-                <a href= "/accounts/edit/">Edit profile</a>
-            </div>
+        <div class="edit">
+            <a href="/accounts/edit/">Edit profile</a>
             <form action="{{url_for('logout')}}" method="post" enctype="multipart/form-data">
-                <input class = "logout" type="submit" name="logout" value="Logout"/>
+                <input class = "logout_button" type="submit" name="logout" value="Logout" />
             </form>
+        </div>
+        <!-- <div class = "logout"> -->
+      
+        <!-- </div> -->
         {% endif %}
-        <div class="info">
+        <!-- <div class="info"> -->
             <span class="numposts">
                 {%if total_posts == 1 %}
-                    1 post
+                1 post
                 {% else %}
-                    {{total_posts}} posts
+                {{total_posts}} posts
                 {% endif %}
             </span>
+        <!-- </div> -->
+        <div class="upload_post">
+            {% if logname == username %}
+                <div class="create">
+                     Create A New Post
+                </div>
+                <form action="/posts/?target={{url_for('show_user', username = username)}}" method="post" enctype="multipart/form-data">
+                    <input class="pic_upload" type="file" name="file" accept="image/*" required />
+                    <!-- Use a button to allow the icon instead of input text -->
+                    <button type="submit" name="create_post" class="upload-btn">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <input type="hidden" name="operation" value="create" />
+                </form>
+            {% endif %}
         </div>
         
-        <div>
-            {% if logname == username %}
-            <form action="/posts/?target={{url_for('show_user', username = username)}}" method="post" enctype="multipart/form-data">
-                <input type="file" name="file" accept="image/*" required/>
-                <input type="submit" name="create_post" value="upload new post"/>
-                <input type="hidden" name="operation" value="create"/>
-            </form>
-            {% endif %}
+    </div>
+    <div class="images">
+        
+        <!-- {% if total_posts == 0 %}
+        <div class="noPosts">
+            No posts yet.
         </div>
-        </div>
-         <div class="images">
-            {% if total_posts == 0 %}
-                <div class="noPosts">
-                    No posts yet.
-                </div>
-            {% endif %}
-            {% for post in posts %}
-                <a href = "/posts/{{post.postid}}/">
-                <img src = "/uploads/{{post.filename}}" alt = "post">
-                </a>
-            {% endfor %}
-         </div>
-       
+        {% endif %} -->
+        {% for post in posts %}
+        <a href="/posts/{{post.postid}}/">
+            <img src="/uploads/{{post.filename}}" alt="post">
+        </a>
+        {% endfor %}
+    </div>
+
 </body>
+
 </html>

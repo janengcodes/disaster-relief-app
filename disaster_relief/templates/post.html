@@ -60,7 +60,8 @@
             <form action="/comments/?target={{url_for('show_post', postid=postid)}}" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="operation" value="create"/>
                 <input type="hidden" name="postid" value="{{postid}}"/>
-                <input type="text" name="text" required/>
+                <input type="text"  name="text" required 
+                placeholder = "Leave a Comment" />
                 <input type="submit" name="comment" value="comment"/>
             </form> 
         </div>

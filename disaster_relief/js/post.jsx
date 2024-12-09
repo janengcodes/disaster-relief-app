@@ -167,6 +167,7 @@ export default function Post({ url }) {
               type="text"
               name="myInput"
               value={commentText}
+              placeholder = "Add a comment..."
               onChange={(e) => setCommentText(e.target.value)}
             />
 

@@ -47,15 +47,12 @@ def delete():
         return flask.redirect(flask.url_for('login'))
     username = flask.session.get('username')
     # Run a unit test for operation: delete.
-    return f'''
-    <p>{username}</p>
-    <form action="/accounts/?target=/accounts/create/"
-    method="post" enctype="multipart/form-data">
-        <input type="submit" name="delete"
-        value="confirm delete account"/>
-        <input type="hidden" name="operation" value="delete"/>
-    </form>
-'''
+    context = {
+        "username": username,
+    }
+    # Query database
+    return flask.render_template("delete.html", **context)
+
 
 
 @disaster_relief.app.route('/accounts/edit/', methods=['GET'])
@@ -94,21 +91,12 @@ def password():
     """Display /accounts/password route."""
     if 'username' not in flask.session:
         return flask.redirect(flask.url_for('login'))
+    username = flask.session.get('username')
     # Render the login form
-    return '''
-        <form action="/accounts/?target=/accounts/edit/"
-        method="post" enctype="multipart/form-data">
-        <input type="password" name="password" required
-        placeholder="old passy"/>
-        <input type="password" name="new_password1" required
-        placeholder="new passy" />
-        <input type="password" name="new_password2" required
-        placeholder="new passy again" />
-        <input type="submit" name="update_password" value="submit"/>
-        <input type="hidden" name="operation" value="update_password"/>
-        </form>
-        <a href="/accounts/edit/">Back to edit account</a>
-    '''
+    context = {
+        "username": username
+    }
+    return flask.render_template("changepassword.html", **context)
 
 
 @disaster_relief.app.route('/accounts/auth/')

@@ -287,6 +287,7 @@ function Post(_ref) {
     type: "text",
     name: "myInput",
     value: commentText,
+    placeholder: "Add a comment...",
     onChange: function onChange(e) {
       return setCommentText(e.target.value);
     }
